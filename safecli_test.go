@@ -88,7 +88,7 @@ func TestBuilderRedactedPrint(t *testing.T) {
 		{fmt: "%s", expected: redactedValue},
 		{fmt: "%v", expected: redactedValue},
 		{fmt: "%+v", expected: redactedValue},
-		{fmt: "%q", expected: fmt.Sprintf("\"%s\"", redactedValue)},
+		{fmt: "%q", expected: fmt.Sprintf("%q", redactedValue)},
 		{fmt: "%#v", expected: redactedValue},
 	} {
 		var logOut strings.Builder
@@ -273,7 +273,7 @@ func TestBuilderString(t *testing.T) {
 		{fmt: "%s", expected: expected},
 		{fmt: "%v", expected: expected},
 		{fmt: "%+v", expected: expected},
-		{fmt: "%q", expected: fmt.Sprintf("\"%s\"", expected)},
+		{fmt: "%q", expected: fmt.Sprintf("%q", expected)},
 		{fmt: "%#v", expected: `&safecli.Builder{Args:[]safecli.Argument{safecli.Argument{Key:"", Value:(*safecli.PlainValue)()}, safecli.Argument{Key:"--temp-dir", Value:(*safecli.PlainValue)()}, safecli.Argument{Key:"", Value:(*safecli.PlainValue)()}, safecli.Argument{Key:"--password", Value:<****>}}, Formatter:(safecli.ArgumentFormatter)()}`},
 	} {
 		var logOut strings.Builder
