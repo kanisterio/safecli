@@ -28,8 +28,8 @@ type Redactor interface {
 	String() string
 }
 
-// redactor defines a function that converts value to Redactor.
-type redactor func(value string) Redactor
+// createRedactor creates a new Redactor from the given value.
+type createRedactor func(value string) Redactor
 
 // Argument stores a key=value pair where the value is subject to redaction.
 type Argument struct {
@@ -91,7 +91,7 @@ type Builder struct {
 }
 
 // append adds a single argument to the builder with a custom redactor.
-func (b *Builder) append(key, value string, redactor redactor) {
+func (b *Builder) append(key, value string, redactor createRedactor) {
 	b.Args = append(b.Args, Argument{
 		Key:   key,
 		Value: redactor(value),
@@ -99,7 +99,7 @@ func (b *Builder) append(key, value string, redactor redactor) {
 }
 
 // appendValues adds values to the builder with a custom redactor.
-func (b *Builder) appendValues(values []string, redactor redactor) *Builder {
+func (b *Builder) appendValues(values []string, redactor createRedactor) *Builder {
 	for _, value := range values {
 		b.append("", value, redactor)
 	}
@@ -107,7 +107,7 @@ func (b *Builder) appendValues(values []string, redactor redactor) *Builder {
 }
 
 // appendKeyValuePairs adds key=value pairs to the builder with a custom redactor.
-func (b *Builder) appendKeyValuePairs(kvPairs []string, redactor redactor) *Builder {
+func (b *Builder) appendKeyValuePairs(kvPairs []string, redactor createRedactor) *Builder {
 	for i := 0; i < len(kvPairs); i += 2 {
 		key, value := kvPairs[i], ""
 		if i+1 < len(kvPairs) {
