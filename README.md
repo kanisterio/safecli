@@ -24,6 +24,8 @@ go get -u github.com/kanisterio/safecli
 To construct a CLI command, you can use the `NewBuilder` function which initializes a new command builder. You can append arguments, both loggable and sensitive, to the builder:
 
 ```go
+package main
+
 import "github.com/kanisterio/safecli"
 
 func main() {
