@@ -1,5 +1,8 @@
 # SafeCLI: Secure Command Line Interface Package
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/kanisterio/safecli)](https://goreportcard.com/report/github.com/kanisterio/safecli)
+[![GitHub Actions](https://github.com/kanisterio/safecli/actions/workflows/ci.yml/badge.svg)](https://github.com/kanisterio/safecli/actions)
+
 SafeCLI is a specialized Go package aimed at facilitating the secure construction, redaction, and logging of command-line arguments. It's designed particularly to handle sensitive values, ensuring they are managed securely throughout the process of command-line argument preparation and execution. This package is part of the Kanister project.
 
 ## Features
