@@ -1,3 +1,5 @@
+package safecli
+
 // Copyright 2019 The Kanister Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +13,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package safecli
 
 // Package safecli provides functionality for building, redacting, and logging command-line arguments.
 // It is designed to handle sensitive values securely
