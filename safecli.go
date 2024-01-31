@@ -156,7 +156,7 @@ func (b *Builder) Arguments() []Argument {
 
 // Build builds and returns the command.
 func (b *Builder) Build() []string {
-	return b.Formatter.format(b.Args)
+	return formatArguments(b.Formatter, b.Args)
 }
 
 // String returns a string representation of the builder with hidden sensitive fields.
@@ -174,7 +174,7 @@ type Logger struct {
 
 // Log builds the loggable command string from the command arguments.
 func (l *Logger) Log() string {
-	c := l.Formatter.format(l.Command.Arguments())
+	c := formatArguments(l.Formatter, l.Command.Arguments())
 	return strings.Join(c, " ")
 }
 

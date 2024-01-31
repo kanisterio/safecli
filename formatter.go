@@ -19,8 +19,8 @@ import "strings"
 // ArgumentFormatter defines a function that formats a command argument to the string.
 type ArgumentFormatter func(a Argument) string
 
-// format combines arguments using ArgumentFormatter.
-func (f ArgumentFormatter) format(args []Argument) []string {
+// formatArguments formats the given arguments using the provided formatter.
+func formatArguments(f ArgumentFormatter, args []Argument) []string {
 	var c []string
 	for _, arg := range args {
 		c = append(c, f(arg))
