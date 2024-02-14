@@ -16,7 +16,7 @@ package command
 
 import "github.com/kanisterio/safecli"
 
-// Apply defines the interface for applying arguments to the command.
+// Applier defines the interface for applying arguments to the command.
 type Applier interface {
 	// Apply applies arguments to the command.
 	Apply(safecli.CommandAppender) error

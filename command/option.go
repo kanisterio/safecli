@@ -37,7 +37,6 @@ func NewOption(name string, isEnabled bool) Applier {
 	} else if !isEnabled {
 		return noopArgument{}
 	}
-
 	return option(name)
 }
 

@@ -24,9 +24,6 @@ import (
 	"github.com/kanisterio/safecli"
 	"github.com/kanisterio/safecli/command"
 	"github.com/kanisterio/safecli/test"
-	// "github.com/kanisterio/kanister/pkg/kopia/cli"
-	// "github.com/kanisterio/kanister/pkg/kopia/cli/internal/flag"
-	// "github.com/kanisterio/kanister/pkg/kopia/cli/internal/test"
 )
 
 var (

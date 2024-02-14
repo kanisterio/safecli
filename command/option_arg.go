@@ -44,7 +44,6 @@ func newOptionArg(name, arg string, isArgRedacted bool) Applier {
 	} else if arg == "" {
 		return noopArgument{}
 	}
-
 	return optionArg{
 		name:       name,
 		arg:        arg,
