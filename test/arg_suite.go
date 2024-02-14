@@ -95,11 +95,11 @@ func (t *ArgumentTest) assertLog(c *check.C, b *safecli.Builder) {
 }
 
 // Test runs the argument test.
-func (t *ArgumentTest) Test(c *check.C, cmd *safecli.Builder) {
+func (t *ArgumentTest) Test(c *check.C, cmdName string) {
 	if t.Name == "" {
 		c.Fatal("Name is required")
 	}
-	err := command.Apply(cmd, t.Argument)
+	cmd, err := command.New(cmdName, t.Argument)
 	if err == nil {
 		t.assertNoError(c, err)
 	} else {
@@ -119,21 +119,11 @@ type ArgumentSuite struct {
 // TestArguments runs all tests in the argument suite.
 func (s *ArgumentSuite) TestArguments(c *check.C) {
 	for _, arg := range s.Arguments {
-		b := newBuilder(s.Cmd)
-		arg.Test(c, b)
+		arg.Test(c, s.Cmd)
 	}
 }
 
 // NewArgumentSuite creates a new ArgumentSuite.
 func NewArgumentSuite(args []ArgumentTest) *ArgumentSuite {
 	return &ArgumentSuite{Arguments: args}
-}
-
-// newBuilder creates a new safecli.Builder with the given command.
-func newBuilder(cmd string) *safecli.Builder {
-	builder := safecli.NewBuilder()
-	if cmd != "" {
-		builder.AppendLoggable(cmd)
-	}
-	return builder
 }

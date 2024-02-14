@@ -33,13 +33,11 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewOptionWithArgument with empty name",
 		Argument:    command.NewOptionWithArgument("", "optArg1"),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: command.ErrInvalidOptionName,
 	},
 	{
 		Name:        "NewOptionWithArgument with invalid name",
 		Argument:    command.NewOptionWithArgument("option", "optArg1"),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: command.ErrInvalidOptionName,
 	},
 	{
@@ -57,13 +55,11 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewOptionWithRedactedArgument with empty name",
 		Argument:    command.NewOptionWithRedactedArgument("", "optArg1"),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: command.ErrInvalidOptionName,
 	},
 	{
 		Name:        "NewOptionWithRedactedArgument with invalid name",
 		Argument:    command.NewOptionWithRedactedArgument("option", "optArg1"),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: command.ErrInvalidOptionName,
 	},
 	{

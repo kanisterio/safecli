@@ -16,10 +16,14 @@ package command
 
 import "github.com/kanisterio/safecli"
 
-// New creates a new safecli.Builder with the given name and arguments.
-func New(name string, args ...Applier) (*safecli.Builder, error) {
-	cmd := safecli.NewBuilder(name)
-	if err := Apply(cmd, args...); err != nil {
+// New creates a new safecli.Builder with the given command name and arguments.
+// If the command name is empty, it will be omitted from the output.
+func New(cmdName string, args ...Applier) (*safecli.Builder, error) {
+	cmd := safecli.NewBuilder()
+	if cmdName != "" {
+		cmd.AppendLoggable(cmdName)
+	}
+	if err := apply(cmd, args...); err != nil {
 		return nil, err
 	}
 	return cmd, nil

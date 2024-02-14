@@ -52,7 +52,6 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewErrorArgument with error",
 		Argument:    command.NewErrorArgument(ErrArgument),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: ErrArgument,
 	},
 	{
@@ -63,7 +62,6 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewArgument with empty name",
 		Argument:    command.NewArgument(""),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: command.ErrInvalidArgumentName,
 	},
 	{
@@ -75,7 +73,6 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewRedactedArgument with empty name",
 		Argument:    command.NewRedactedArgument(""),
-		ExpectedCLI: []string{"cmd"},
 		ExpectedErr: command.ErrInvalidArgumentName,
 	},
 	{

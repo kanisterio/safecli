@@ -56,8 +56,7 @@ func (t *CustomArgumentTest) Test(c *check.C) {
 	if t.arg != "" {
 		argTest.ExpectedCLI = []string{t.arg}
 	}
-	b := safecli.NewBuilder()
-	argTest.Test(c, b)
+	argTest.Test(c, "")
 }
 
 type CustomArgumentSuite struct {

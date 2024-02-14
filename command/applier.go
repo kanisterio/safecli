@@ -22,11 +22,11 @@ type Applier interface {
 	Apply(safecli.CommandAppender) error
 }
 
-// Apply appends multiple arguments to the command.
-// If any of the arguments encounter an error during the Apply process,
+// apply appends multiple arguments to the command.
+// If any of the arguments encounter an error during the apply process,
 // the error is returned and no changes are made to the command.
 // If no error, the arguments are appended to the command.
-func Apply(cmd safecli.CommandAppender, args ...Applier) error {
+func apply(cmd safecli.CommandAppender, args ...Applier) error {
 	// create a new subcmd builder which will be used to apply the arguments
 	// to avoid mutating the command if an error is encountered.
 	subcmd := safecli.NewBuilder()

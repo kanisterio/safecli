@@ -85,7 +85,7 @@ type Arguments []Applier
 
 // Apply applies the flags to the CLI.
 func (args Arguments) Apply(cli safecli.CommandAppender) error {
-	return Apply(cli, args...)
+	return apply(cli, args...)
 }
 
 // NewArguments creates a new collection of arguments.
