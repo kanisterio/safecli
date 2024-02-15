@@ -42,6 +42,11 @@ func (noopArgument) Apply(safecli.CommandAppender) error {
 	return nil
 }
 
+// NewNoopArgument creates a new argument that does nothing when applied.
+func NewNoopArgument() Applier {
+	return noopArgument{}
+}
+
 // argument defines an argument with the given name.
 // If the argument is redacted, it is appended as redacted.
 type argument struct {

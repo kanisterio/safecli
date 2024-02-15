@@ -23,17 +23,19 @@ import (
 
 // CreateArgs represents the arguments for the `kopia repository create` command.
 type CreateArgs struct {
-	args.Common
-
-	Hostname string
-	Username string
+	args.Common          // common arguments
+	Location    Location // filesystem, s3, etc
+	Hostname    string   // the hostname of the repository
+	Username    string   // the username of the repository
 }
 
 // Create creates a new safecli.Builder for the `kopia repository create` command.
 func Create(args CreateArgs) (*safecli.Builder, error) {
-	return internal.NewKopiaCommand(opts.Common(args.Common),
-		cmdRepository, cmdCreate,
+	return internal.NewKopiaCommand(
+		opts.Common(args.Common),
+		cmdRepository, subcmdCreate,
 		optHostname(args.Hostname),
 		optUsername(args.Username),
+		optStorage(args.Location),
 	)
 }

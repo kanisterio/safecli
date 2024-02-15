@@ -14,20 +14,53 @@
 
 package repository
 
-import "github.com/kanisterio/safecli/command"
+import (
+	"fmt"
+	"time"
 
-// cmdXXX represents different `kopia repository“ commands.
-var (
-	cmdRepository = command.NewArgument("repository")
-	cmdCreate     = command.NewArgument("create")
+	"github.com/kanisterio/safecli/command"
+	"github.com/kanisterio/safecli/examples/kopia/repository/storage/fs"
+	"github.com/kanisterio/safecli/examples/kopia/repository/storage/s3"
 )
 
-// optHostname returns a new optHostname flag with a given optHostname.
-func optHostname(hostname string) command.Applier {
-	return command.NewOptionWithArgument("--override-hostname", hostname)
+var (
+	cmdRepository = command.NewArgument("repository")
+
+	subcmdCreate  = command.NewArgument("create")
+	subcmdConnect = command.NewArgument("connect")
+)
+
+// optHostname creates a new option for the hostname of the repository.
+func optHostname(h string) command.Applier {
+	return command.NewOptionWithArgument("--override-hostname", h)
 }
 
-// optUsername returns a new optUsername flag with a given optUsername.
-func optUsername(username string) command.Applier {
-	return command.NewOptionWithArgument("--override-username", username)
+// optUsername creates a new option for the username of the repository.
+func optUsername(u string) command.Applier {
+	return command.NewOptionWithArgument("--override-username", u)
+}
+
+// optReadOnly creates a new option for the read-only mode of the repository.
+func optReadOnly(readOnly bool) command.Applier {
+	return command.NewOption("--read-only", readOnly)
+}
+
+// optPointInTime creates a new option for the point-in-time of the repository.
+func optPointInTime(pit time.Time) command.Applier {
+	if pit.IsZero() {
+		return command.NewNoopArgument()
+	}
+	return command.NewOptionWithArgument("--point-in-time", pit.Format(time.RFC3339))
+}
+
+// optStorage creates a list of options for the specified storage location.
+func optStorage(l Location) command.Applier {
+	switch l.Provider {
+	case ProviderFilesystem:
+		return fs.New(l.MetaData)
+	case ProviderS3:
+		return s3.New(l.MetaData)
+	default:
+		return command.NewErrorArgument(fmt.Errorf("unsupported storage provider: %s", l.Provider))
+	}
 }
