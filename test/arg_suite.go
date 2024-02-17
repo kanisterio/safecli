@@ -100,7 +100,7 @@ func (t *ArgumentTest) Test(c *check.C, cmdName string) {
 		c.Fatal("Name is required")
 	}
 	cmd, err := command.New(cmdName, t.Argument)
-	if err == nil {
+	if t.ExpectedErr == nil {
 		t.assertNoError(c, err)
 	} else {
 		t.assertError(c, err)
