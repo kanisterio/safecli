@@ -111,6 +111,21 @@ func (s *TestRunnerWithConfig) TestArgumentTestEmptyName(c *check.C) {
 	c.Assert(res.Passed(), check.Equals, false)
 }
 
+// TestArgumentTestErrButReturnOK tests the ArgumentTest with an error but ArgumentTest returns no error.
+func (s *TestRunnerWithConfig) TestArgumentTestErrButReturnOK(c *check.C) {
+	err := errors.New("test error")
+	cat := CustomArgumentTest{
+		name:           "TestArgumentTestErrButReturnOK",
+		argErr:         nil, // no error
+		expectedErr:    err, // expected error
+		expectedErrMsg: "test error",
+	}
+	res := check.Run(&cat, s.cfg)
+	out := strings.ReplaceAll(s.out.String(), "\n", "")
+	c.Assert(out, check.Matches, ".*FAIL:.*CustomArgumentTest\\.Test.*test error.*")
+	c.Assert(res.Passed(), check.Equals, false)
+}
+
 // TestArgumentTestErr tests the ArgumentTest with an error.
 func (s *TestRunnerWithConfig) TestArgumentTestErr(c *check.C) {
 	err := errors.New("test error")
