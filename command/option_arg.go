@@ -41,8 +41,6 @@ func (o optionArg) Apply(cmd safecli.CommandAppender) error {
 func newOptionArg(name, arg string, isArgRedacted bool) Applier {
 	if err := validateOptionName(name); err != nil {
 		return err
-	} else if arg == "" {
-		return noopArgument{}
 	}
 	return optionArg{
 		name:       name,

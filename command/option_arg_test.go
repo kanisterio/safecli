@@ -43,7 +43,7 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewOptionWithArgument with empty argument",
 		Argument:    command.NewOptionWithArgument("--option", ""),
-		ExpectedCLI: []string{"cmd"},
+		ExpectedCLI: []string{"cmd", "--option="},
 	},
 
 	{
@@ -65,6 +65,7 @@ var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTe
 	{
 		Name:        "NewOptionWithRedactedArgument with empty argument",
 		Argument:    command.NewOptionWithRedactedArgument("--option", ""),
-		ExpectedCLI: []string{"cmd"},
+		ExpectedCLI: []string{"cmd", "--option="},
+		ExpectedLog: "cmd --option=<****>",
 	},
 }})
