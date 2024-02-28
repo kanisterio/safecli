@@ -45,6 +45,11 @@ func TestArguments(t *testing.T) { check.TestingT(t) }
 
 var _ = check.Suite(&test.ArgumentSuite{Cmd: "cmd", Arguments: []test.ArgumentTest{
 	{
+		Name:        "NewArguments with NoopArgument",
+		Argument:    command.NewNoopArgument(),
+		ExpectedCLI: []string{"cmd"},
+	},
+	{
 		Name:        "NewErrorArgument without error",
 		Argument:    command.NewErrorArgument(nil),
 		ExpectedCLI: []string{"cmd"},
