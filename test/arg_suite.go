@@ -63,26 +63,26 @@ func (t *ArgumentTest) setDefaultExpectedLog() {
 
 // assertNoError makes sure there is no error.
 func (t *ArgumentTest) assertNoError(c *check.C, err error) {
-	c.Assert(err, check.IsNil, t)
+	c.Assert(err, check.IsNil)
 }
 
 // assertError checks the error against ExpectedErr.
 func (t *ArgumentTest) assertError(c *check.C, err error) {
 	actualErr := errors.Cause(err)
-	c.Assert(actualErr, check.Equals, t.ExpectedErr, t)
+	c.Assert(actualErr, check.Equals, t.ExpectedErr)
 }
 
 // assertErrorMsg checks the error message against ExpectedErrMsg.
 func (t *ArgumentTest) assertErrorMsg(c *check.C, err error) {
 	if t.ExpectedErrMsg != "" {
-		c.Assert(err.Error(), check.Equals, t.ExpectedErrMsg, t)
+		c.Assert(err.Error(), check.Equals, t.ExpectedErrMsg)
 	}
 }
 
 // assertCLI asserts the builder's CLI output against ExpectedCLI.
 func (t *ArgumentTest) assertCLI(c *check.C, b *safecli.Builder) {
 	if t.ExpectedCLI != nil {
-		c.Check(b.Build(), check.DeepEquals, t.ExpectedCLI, t)
+		c.Check(b.Build(), check.DeepEquals, t.ExpectedCLI)
 	}
 }
 
@@ -90,7 +90,7 @@ func (t *ArgumentTest) assertCLI(c *check.C, b *safecli.Builder) {
 func (t *ArgumentTest) assertLog(c *check.C, b *safecli.Builder) {
 	if t.ExpectedCLI != nil {
 		t.setDefaultExpectedLog()
-		c.Check(b.String(), check.Equals, t.ExpectedLog, t)
+		c.Check(b.String(), check.Equals, t.ExpectedLog)
 	}
 }
 
@@ -99,6 +99,7 @@ func (t *ArgumentTest) Test(c *check.C, cmdName string) {
 	if t.Name == "" {
 		c.Fatal("Name is required")
 	}
+	c.Log(t.Name)
 	cmd, err := command.New(cmdName, t.Argument)
 	if t.ExpectedErr == nil {
 		t.assertNoError(c, err)
