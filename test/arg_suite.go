@@ -49,9 +49,10 @@ type ArgumentTest struct {
 	ExpectedErrMsg string
 }
 
-// CheckCommentString implements check.CommentInterface
-func (t *ArgumentTest) CheckCommentString() string {
-	return t.Name
+// comment provides a test name for the test during assertions and checks.
+// This method is compatible with different checkers.
+func (t *ArgumentTest) comment() any {
+	return check.Commentf("%s", t.Name)
 }
 
 // setDefaultExpectedLog sets the default value for ExpectedLog based on ExpectedCLI.
@@ -63,26 +64,26 @@ func (t *ArgumentTest) setDefaultExpectedLog() {
 
 // assertNoError makes sure there is no error.
 func (t *ArgumentTest) assertNoError(c *check.C, err error) {
-	c.Assert(err, check.IsNil)
+	c.Assert(err, check.IsNil, t.comment())
 }
 
 // assertError checks the error against ExpectedErr.
 func (t *ArgumentTest) assertError(c *check.C, err error) {
 	actualErr := errors.Cause(err)
-	c.Assert(actualErr, check.Equals, t.ExpectedErr)
+	c.Assert(actualErr, check.Equals, t.ExpectedErr, t.comment())
 }
 
 // assertErrorMsg checks the error message against ExpectedErrMsg.
 func (t *ArgumentTest) assertErrorMsg(c *check.C, err error) {
 	if t.ExpectedErrMsg != "" {
-		c.Assert(err.Error(), check.Equals, t.ExpectedErrMsg)
+		c.Assert(err.Error(), check.Equals, t.ExpectedErrMsg, t.comment())
 	}
 }
 
 // assertCLI asserts the builder's CLI output against ExpectedCLI.
 func (t *ArgumentTest) assertCLI(c *check.C, b *safecli.Builder) {
 	if t.ExpectedCLI != nil {
-		c.Check(b.Build(), check.DeepEquals, t.ExpectedCLI)
+		c.Check(b.Build(), check.DeepEquals, t.ExpectedCLI, t.comment())
 	}
 }
 
@@ -90,7 +91,7 @@ func (t *ArgumentTest) assertCLI(c *check.C, b *safecli.Builder) {
 func (t *ArgumentTest) assertLog(c *check.C, b *safecli.Builder) {
 	if t.ExpectedCLI != nil {
 		t.setDefaultExpectedLog()
-		c.Check(b.String(), check.Equals, t.ExpectedLog)
+		c.Check(b.String(), check.Equals, t.ExpectedLog, t.comment())
 	}
 }
 
@@ -99,7 +100,6 @@ func (t *ArgumentTest) Test(c *check.C, cmdName string) {
 	if t.Name == "" {
 		c.Fatal("Name is required")
 	}
-	c.Log(t.Name)
 	cmd, err := command.New(cmdName, t.Argument)
 	if t.ExpectedErr == nil {
 		t.assertNoError(c, err)
