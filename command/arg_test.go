@@ -19,15 +19,14 @@ import (
 
 	"gopkg.in/check.v1"
 
-	"github.com/pkg/errors"
-
+	"github.com/kanisterio/errkit"
 	"github.com/kanisterio/safecli"
 	"github.com/kanisterio/safecli/command"
 	"github.com/kanisterio/safecli/test"
 )
 
 var (
-	ErrArgument = errors.New("arg error")
+	ErrArgument = errkit.NewSentinelErr("arg error")
 )
 
 // MockArg is a mock implementation of the Applier interface.

@@ -17,10 +17,8 @@ package test
 import (
 	"gopkg.in/check.v1"
 
-	"github.com/pkg/errors"
-
+	"github.com/kanisterio/errkit"
 	"github.com/kanisterio/safecli"
-
 	"github.com/kanisterio/safecli/command"
 )
 
@@ -69,8 +67,7 @@ func (t *ArgumentTest) assertNoError(c *check.C, err error) {
 
 // assertError checks the error against ExpectedErr.
 func (t *ArgumentTest) assertError(c *check.C, err error) {
-	actualErr := errors.Cause(err)
-	c.Assert(actualErr, check.Equals, t.ExpectedErr, t.comment())
+	c.Assert(errkit.Is(err, t.ExpectedErr), check.Equals, true, t.comment())
 }
 
 // assertErrorMsg checks the error message against ExpectedErrMsg.
