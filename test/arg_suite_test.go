@@ -18,10 +18,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pkg/errors"
-
 	"gopkg.in/check.v1"
 
+	"github.com/kanisterio/errkit"
 	"github.com/kanisterio/safecli"
 	"github.com/kanisterio/safecli/test"
 )
@@ -113,7 +112,7 @@ func (s *TestRunnerWithConfig) TestArgumentTestEmptyName(c *check.C) {
 
 // TestArgumentTestErrButReturnOK tests the ArgumentTest with an error but ArgumentTest returns no error.
 func (s *TestRunnerWithConfig) TestArgumentTestErrButReturnOK(c *check.C) {
-	err := errors.New("test error")
+	err := errkit.New("test error")
 	cat := CustomArgumentTest{
 		name:           "TestArgumentTestErrButReturnOK",
 		argErr:         nil, // no error
@@ -122,13 +121,13 @@ func (s *TestRunnerWithConfig) TestArgumentTestErrButReturnOK(c *check.C) {
 	}
 	res := check.Run(&cat, s.cfg)
 	out := strings.ReplaceAll(s.out.String(), "\n", "")
-	c.Assert(out, check.Matches, ".*FAIL:.*CustomArgumentTest\\.Test.*test error.*")
+	c.Assert(out, check.Matches, ".*FAIL:.*CustomArgumentTest\\.Test.*TestArgumentTestErrButReturnOK")
 	c.Assert(res.Passed(), check.Equals, false)
 }
 
 // TestArgumentTestErr tests the ArgumentTest with an error.
 func (s *TestRunnerWithConfig) TestArgumentTestErr(c *check.C) {
-	err := errors.New("test error")
+	err := errkit.New("test error")
 	cat := CustomArgumentTest{
 		name:           "TestArgumentErr",
 		argErr:         err,
@@ -142,8 +141,8 @@ func (s *TestRunnerWithConfig) TestArgumentTestErr(c *check.C) {
 
 // TestArgumentTestWrapperErr tests the ArgumentTest with a wrapped error.
 func (s *TestRunnerWithConfig) TestArgumentTestWrapperErr(c *check.C) {
-	err := errors.New("test error")
-	werr := errors.Wrap(err, "wrapper error")
+	err := errkit.New("test error")
+	werr := errkit.Wrap(err, "wrapper error")
 	cat := CustomArgumentTest{
 		name:        "TestArgumentTestWrapperErr",
 		argErr:      werr,
@@ -156,7 +155,7 @@ func (s *TestRunnerWithConfig) TestArgumentTestWrapperErr(c *check.C) {
 
 // TestArgumentTestUnexpectedErr tests the ArgumentTest with an unexpected error.
 func (s *TestRunnerWithConfig) TestArgumentTestUnexpectedErr(c *check.C) {
-	err := errors.New("test error")
+	err := errkit.New("test error")
 	cat := CustomArgumentTest{
 		name:        "TestArgumentUnexpectedErr",
 		arg:         "--test",

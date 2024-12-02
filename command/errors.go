@@ -15,12 +15,12 @@
 package command
 
 import (
-	"github.com/pkg/errors"
+	"github.com/kanisterio/errkit"
 )
 
 var (
 	// ErrInvalidArgumentName is returned when the argument name is empty.
-	ErrInvalidArgumentName = errors.New("argument name is empty")
+	ErrInvalidArgumentName = errkit.NewSentinelErr("argument name is empty")
 	// ErrInvalidOptionName is returned when the option name is empty or has no hyphen prefix.
-	ErrInvalidOptionName = errors.New("option name is empty or has no hyphen prefix")
+	ErrInvalidOptionName = errkit.NewSentinelErr("option name is empty or has no hyphen prefix")
 )
