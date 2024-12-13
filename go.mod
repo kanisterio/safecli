@@ -1,11 +1,9 @@
 module github.com/kanisterio/safecli
 
-go 1.21.0
-
-toolchain go1.22.4
+go 1.22.7
 
 require (
-	github.com/kanisterio/errkit v0.0.2
+	github.com/kanisterio/errkit v0.0.3
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
 )
 
